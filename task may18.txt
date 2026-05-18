@@ -1,0 +1,190 @@
+-- 1
+select patientid,sum(amount) as total_amount
+from billing
+group by patientid;
+
+
+
+-- 2
+select 
+concat(d.firstname,' ',d.lastname) as doctorname,
+count(a.appointmentid) as appointment_count
+from doctor d
+join appointment a
+on d.doctorid=a.doctorid
+group by d.doctorid,d.firstname,d.lastname;
+
+
+
+-- 3
+select avg(amount) as average_billing_amount
+from billing;
+
+
+
+-- 4
+select 
+max(amount) as maximum_billing_amount,
+min(amount) as minimum_billing_amount
+from billing;
+
+
+
+-- 5
+select 
+concat(d.firstname,' ',d.lastname) as doctorname,
+count(p.prescriptionid) as prescription_count
+from doctor d
+join prescription p
+on d.doctorid=p.doctorid
+group by d.doctorid,d.firstname,d.lastname
+having count(p.prescriptionid) > 2;
+
+
+
+-- 6
+select diagnosis,count(recordid) as record_count
+from medicalrecord
+group by diagnosis;
+
+
+
+-- 7
+select 
+concat(p.firstname,' ',p.lastname) as patientname,
+m.diagnosis
+from patient p
+join medicalrecord m
+on p.patientid=m.patientid;
+
+
+
+-- 8
+select 
+a.appointmentdate,
+a.reason,
+a.status,
+p.firstname as patient_firstname,
+p.lastname as patient_lastname,
+d.firstname as doctor_firstname,
+d.lastname as doctor_lastname
+from appointment a
+join patient p
+on a.patientid=p.patientid
+join doctor d
+on a.doctorid=d.doctorid;
+
+
+
+-- 9
+select 
+pr.medication,
+concat(p.firstname,' ',p.lastname) as patientname,
+concat(d.firstname,' ',d.lastname) as doctorname
+from prescription pr
+join patient p
+on pr.patientid=p.patientid
+join doctor d
+on pr.doctorid=d.doctorid;
+
+
+
+-- 10
+select 
+p.patientid,
+p.firstname,
+p.lastname,
+b.billingid,
+b.amount,
+b.billingdate,
+b.status
+from patient p
+left join billing b
+on p.patientid=b.patientid;
+
+
+
+-- 11
+select 
+d.doctorid,
+d.firstname,
+d.lastname,
+a.appointmentid,
+a.appointmentdate,
+a.status
+from doctor d
+left join appointment a
+on d.doctorid=a.doctorid;
+
+
+
+-- 12
+select 
+concat(p.firstname,' ',p.lastname) as patientname,
+sum(b.amount) as total_billed_amount
+from patient p
+join billing b
+on p.patientid=b.patientid
+group by p.patientid,p.firstname,p.lastname;
+
+
+
+-- 13
+select 
+a.appointmentdate,
+a.reason,
+a.status,
+p.gender,
+p.contactinfo
+from appointment a
+join patient p
+on a.patientid=p.patientid;
+
+
+
+-- 14
+select *
+from appointment
+where status='scheduled'
+and appointmentdate > '2026-01-01';
+
+
+
+-- 15
+select *
+from patient
+where firstname like 'a%';
+
+
+
+-- 16
+select *
+from billing
+where amount between 500 and 2000;
+
+
+
+-- 17
+select *
+from prescription
+where medication in ('paracetamol','ibuprofen','amoxicillin');
+
+
+
+-- 18
+select *
+from medicalrecord
+where treatment like '%surgery%'
+or notes is not null;
+
+
+
+-- 19
+alter table patient
+add bloodgroup varchar(5);
+
+
+
+-- 20
+alter table doctor
+modify phone varchar(20);
