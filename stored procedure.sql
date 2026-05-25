@@ -185,16 +185,16 @@ delimiter ;
 
 
 
-call registeruser('teacher1', 'teach123', 'teacher');
+call registeruser('bibek', 'Hello123', 'teacher');
 
 
-call registeruser('student1', 'stud123', 'student');
+call registeruser('ram', 'ram123', 'student');
 
 
-call userlogin('teacher1', 'teach123');
+call userlogin('bibek', 'Hello123');
 
 
-call userlogin('student1', 'stud123');
+call userlogin('ram', 'ram123');
 
 
 call createnotice(
